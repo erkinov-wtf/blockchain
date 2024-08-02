@@ -1,9 +1,12 @@
 package chain
 
-import "blockchain/block"
+import (
+	"blockchain/block"
+	"blockchain/block/types"
+)
 
 type Blockchain struct {
-	Blocks []*block.Block
+	Blocks []*types.Block
 }
 
 func (bc *Blockchain) AddBlock(data string) {
@@ -13,5 +16,5 @@ func (bc *Blockchain) AddBlock(data string) {
 }
 
 func NewBlockchain() *Blockchain {
-	return &Blockchain{[]*block.Block{block.NewGenesisBlock()}}
+	return &Blockchain{[]*types.Block{block.NewGenesisBlock()}}
 }
