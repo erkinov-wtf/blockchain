@@ -3,15 +3,16 @@ package block
 import (
 	"blockchain/block/types"
 	"blockchain/hashcash"
+	"blockchain/transaction"
 	"time"
 )
 
-func NewGenesisBlock() *types.Block {
-	return NewBlock("Genesis Block", []byte{})
+func NewGenesisBlock(coinbase *transaction.Transaction) *types.Block {
+	return NewBlock([]*transaction.Transaction{coinbase}, []byte{})
 }
 
-func NewBlock(data string, prevBlockHash []byte) *types.Block {
-	block := &types.Block{time.Now().Unix(), []byte(data), prevBlockHash, []byte{}, 0}
+func NewBlock(transactions []*transaction.Transaction, prevBlockHash []byte) *types.Block {
+	block := &types.Block{time.Now().Unix(), transactions, prevBlockHash, []byte{}, 0}
 	pow := hashcash.NewProofOfWork(block)
 	counter, hash := pow.Run()
 

@@ -29,7 +29,7 @@ func (pow *ProofOfWork) PrepareData(counter int) []byte {
 	data := bytes.Join(
 		[][]byte{
 			pow.Block.PrevBlockHash,
-			pow.Block.Data,
+			pow.Block.HashTransactions(),
 			utils.IntToHex(pow.Block.Timestamp),
 			utils.IntToHex(int64(targetBits)),
 			utils.IntToHex(int64(counter)),
@@ -46,7 +46,7 @@ func (pow *ProofOfWork) Run() (int, []byte) {
 	maxCounter := math.MaxInt64
 	counter := 0
 
-	fmt.Printf("Mining the block containing \"%s\"\n", pow.Block.Data)
+	fmt.Printf("Mining a new block")
 	for counter < maxCounter {
 		data := pow.PrepareData(counter)
 		hash = sha256.Sum256(data)
