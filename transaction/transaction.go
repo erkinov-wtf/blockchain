@@ -7,14 +7,15 @@ type Transaction struct {
 }
 
 type TXOutput struct {
-	Value        int
-	ScriptPublic string
+	Value      int
+	PubKeyHash []byte
 }
 
 type TXInput struct {
 	Txid      []byte
 	Vout      int
-	ScriptSig string
+	Signature []byte
+	PubKey    []byte
 }
 
 const subsidy = 10
